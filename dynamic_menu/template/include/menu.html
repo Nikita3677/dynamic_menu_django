@@ -1,0 +1,23 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+{% for category in categorys %}
+<ul class="nav nav-pills">
+  <li>        
+    <a class="nav-link {% if category.title  == menu.title  %}active{% endif %}"  href="{% url 'menu:category' category.slug %}">
+      {{ category.title }}
+    </a>
+<ul>
+{% for sub_category in sub_categorys %}
+  {% if sub_category.category == category %}
+    <ul class="nav nav-pills">
+      <li class="nav-item">    
+        <a class="nav-link {% if menu.title == sub_category.title %}active{% endif %}" href="{% url 'menu:sub_category' category.slug sub_category.slug%}">
+          {{ sub_category.title }}
+        </a>
+      </li>
+    </ul>
+  {% endif %}
+{% endfor %}
+</ul>
+{% endfor %}
